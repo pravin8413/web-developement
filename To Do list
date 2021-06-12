@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: #04A1BF;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .intro {
+            margin: 30px 0px;
+            font-weight: bold;
+        }
+        p{
+            display: inline;
+            position: absolute;
+            right: 520px;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .listItem{
+            justify-content: center;
+        }
+
+
+        #enter {
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            color: #04A1BF;
+            background-color: #025F70;
+            transition: all 0.75s ease;
+            font-weight: normal;
+        }
+
+
+        ul {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            font-weight: 600;
+            border: 2px solid #025f70;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #4EB9CD;
+            transition: all 0.75s ease;
+        }
+
+        li:hover {
+            background: #76CFE0;
+        }
+
+        li>button {
+            font-weight: normal;
+            background: none;
+            border: none;
+            float: right;
+            color: #025f70;
+            font-weight: 800;
+        }
+
+        input {
+            border-radius: 5px;
+            min-width: 65%;
+            height: 40px;
+            padding: 5px;
+            border: none;
+        }
+
+
+        .done {
+            background: #51DF70 !important;
+            color: #00891E;
+        }
+
+        .delete {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" align="center">
+        <div class="row">
+            <div class="intro col-12">
+                <h1>Work To-Dos</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <input id="userInput" type="text" placeholder="Enter Task" maxlength="30">
+                <button id="enter">Do</button>
+            </div>
+        </div>
+
+        <!-- Empty List -->
+        <div class="row">
+            <div class="listItems col-12">
+                <ul class="col-6">
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var enterButton = document.getElementById("enter");
+        var input = document.getElementById("userInput");
+        var ul = document.querySelector("ul");
+        var item = document.getElementsByTagName("li");
+
+        function inputLength() {
+            return input.value.length;
+        }
+
+        function listLength() {
+            return item.length;
+        }
+        
+        function createListElement() {
+            const d = new Date();
+            var li = document.createElement("li"); 
+            li.appendChild(document.createTextNode(input.value)); 
+            ul.appendChild(li); 
+            input.value = "";
+            a=d.toDateString();
+            hr=d.getHours();
+            min=d.getMinutes();
+            sec=d.getSeconds();
+
+            if(min<10)
+            {
+                min=`0${min}`;
+            }
+            if(hr<10)
+            {
+                hr=`0${hr}`;
+            }
+
+            if(sec<10)
+            {
+                sec=`0${sec}`;
+            }
+
+
+            b=`${hr}:${min}:${sec} ${a}`;
+
+            var time = document.createElement("p")
+            time.appendChild(document.createTextNode(b));
+            li.appendChild(time); 
+
+
+            function crossOut() {
+                li.classList.toggle("done");
+            }
+            li.addEventListener("click", crossOut);
+            var dBtn = document.createElement("button");
+            dBtn.appendChild(document.createTextNode("X"));
+            li.appendChild(dBtn);
+            dBtn.addEventListener("click", deleteListItem);
+            function deleteListItem() {
+                li.classList.add("delete")
+            }
+            
+        }
+
+
+        function addListAfterClick() {
+            if (inputLength() > 0) {
+                createListElement();
+            }
+        }
+
+        function addListAfterKeypress(event) {
+            if (inputLength() > 0 && event.which === 13) {
+                createListElement();
+            }
+        }
+
+
+        enterButton.addEventListener("click", addListAfterClick);
+
+        input.addEventListener("keypress", addListAfterKeypress);
+
+
+    </script>
+</body>
+
+</html>
