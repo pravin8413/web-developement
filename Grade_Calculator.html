@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        .no-border{
+            border: 0;
+            border-bottom: 2px solid black;
+            box-shadow: none;
+            background-color: black;
+            color: white;
+            margin-bottom: 3px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container my-5 p-3" style="display: flex; justify-content: center;">
+        <div class="row p-5 bg-dark w-50">
+            <div class="col-md-4 my-auto text-white"  style="text-align: center;">
+                STUDENT GRADE CALCY
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+                <div class="bg-dark">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control no-border bg-dark text-white" placeholder="WEB PROGRAMMING" id="wd">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control no-border bg-dark text-white" placeholder="Computer" id="comp">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control no-border bg-dark text-white" placeholder="Maths" id="math">
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control no-border bg-dark text-white" placeholder="DSA" id="dsa">
+                    </div>
+                    <div class="mb-3" align="center">
+                        <button type="submit" name="" value="showPercentage" class="btn btn-primary no-border px-3 btn-lg" onclick="calcy()">showPercentage</button>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-12 mx-auto text-white" style="height: 50px;" >
+                <div class="app-form-group showdata">
+                    <p id="showdata"></p>
+                </div>
+                </div>
+        </div>
+       
+    </div>
+    <script>
+        const calcy = () => {
+            let wd = document.getElementById('wd').value;
+            let maths = document.getElementById("math").value;
+            let dsa = document.getElementById("dsa").value;
+            let comp = document.getElementById("comp").value;
+            let grades= "";
+
+            let totalGrades = parseFloat(wd)+ parseFloat(maths)+parseFloat(dsa)+parseFloat(comp);
+            //alert(totalGrades);
+            if((wd.length==0 && Number.isInteger(parseFloat(wd))) || maths.length==0 || dsa.length==0 || comp.length==0)
+            {
+                alert("Invalid Input");
+                return;
+            }
+            let pers = (totalGrades/400)*100
+            //alert(pers);
+
+            if(pers <=100 && pers>=80)
+            {
+                grades='A';
+            }
+            else if(pers<=79 && pers>=60){
+                grades='B';
+            }
+            else if(pers<=59 && pers>=40){
+                grades='C';
+            }
+            else{
+                grades='D';
+            }
+            let tex =`Out of 400 your total is ${totalGrades} and percentage is ${pers}%. <br> Your grade is ${grades}.`;
+            if(grades=='D')
+            {
+                document.getElementById('showdata').innerHTML= tex+' You are Fail';
+            }
+            else{
+                document.getElementById('showdata').innerHTML = tex+' You are Pass';
+            }
+             
+        }
+    </script>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
